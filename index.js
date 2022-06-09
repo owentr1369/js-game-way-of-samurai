@@ -13,6 +13,7 @@ class Sprite {
   constructor({ position, velocity, color = "red" }) {
     this.position = position;
     this.velocity = velocity;
+    this.width = 50;
     this.height = 150;
     this.lastKey;
     this.attackBox = {
@@ -21,19 +22,22 @@ class Sprite {
       height: 50,
     };
     this.color = color;
+    this.isAttacking;
   }
   draw() {
     c.fillStyle = this.color;
-    c.fillRect(this.position.x, this.position.y, 50, this.height);
+    c.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    // attack box
-    c.fillStyle = "green";
-    c.fillRect(
-      this.attackBox.position.x,
-      this.attackBox.position.y,
-      this.attackBox.width,
-      this.attackBox.height
-    );
+    // Attack box
+    if (this.isAttacking) {
+      c.fillStyle = "green";
+      c.fillRect(
+        this.attackBox.position.x,
+        this.attackBox.position.y,
+        this.attackBox.width,
+        this.attackBox.height
+      );
+    }
   }
   update() {
     this.draw();
@@ -45,6 +49,12 @@ class Sprite {
     } else {
       this.velocity.y += gravity;
     }
+  }
+  attack() {
+    this.isAttacking = true;
+    setTimeout(() => {
+      this.isAttacking = false;
+    }, 100);
   }
 }
 
@@ -116,9 +126,13 @@ function animate() {
   }
   //   detect for collusion collusion
   if (
-    player.attackBox.position.x + player.attackBox.width >=
-    enemy.position.x
+    player.attackBox.position.x + player.attackBox.width >= enemy.position.x &&
+    player.attackBox.position.x <= enemy.position.x + enemy.width &&
+    player.attackBox.position.y + player.attackBox.height >= enemy.position.y &&
+    player.attackBox.position.y <= enemy.position.y + enemy.height &&
+    player.isAttacking
   ) {
+    player.isAttacking = false;
     console.log("hit");
   }
 }
@@ -139,6 +153,9 @@ window.addEventListener("keydown", (event) => {
       break;
     case "w":
       player.velocity.y = -20;
+      break;
+    case " ":
+      player.attack();
       break;
 
     case "ArrowRight":
