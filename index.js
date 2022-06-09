@@ -69,6 +69,7 @@ const enemy = new Sprite({
     x: 0,
     y: 0,
   },
+  color: "blue",
 });
 enemy.draw();
 
@@ -112,6 +113,13 @@ function animate() {
     enemy.velocity.x = -5;
   } else if (keys.ArrowRight.pressed && enemy.lastKey === "ArrowRight") {
     enemy.velocity.x = 5;
+  }
+  //   detect for collusion collusion
+  if (
+    player.attackBox.position.x + player.attackBox.width >=
+    enemy.position.x
+  ) {
+    console.log("hit");
   }
 }
 
