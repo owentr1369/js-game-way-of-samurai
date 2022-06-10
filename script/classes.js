@@ -7,11 +7,14 @@ class Sprite {
     this.image.src = imageSrc;
     this.scale = scale;
     this.framesMax = framesMax;
+    this.frameCurrent = 0;
+    this.framesElapsed = 0;
+    this.frameHold = 8;
   }
   draw() {
     c.drawImage(
       this.image,
-      0,
+      this.frameCurrent * (this.image.width / this.framesMax),
       0,
       this.image.width / this.framesMax,
       this.image.height,
@@ -23,6 +26,15 @@ class Sprite {
   }
   update() {
     this.draw();
+    this.framesElapsed++;
+
+    if (this.framesElapsed % this.frameHold === 0) {
+      if (this.frameCurrent < this.framesMax - 1) {
+        this.frameCurrent++;
+      } else {
+        this.frameCurrent = 0;
+      }
+    }
   }
 }
 
