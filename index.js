@@ -85,7 +85,35 @@ const enemy = new Fighter({
     x: -50,
     y: 0,
   },
-  color: "blue",
+  imageSrc: "./assets/kenji/Idle.png",
+  framesMax: 4,
+  scale: 2.5,
+  offset: {
+    x: 215,
+    y: 157,
+  },
+  sprites: {
+    idle: {
+      imageSrc: "./assets/kenji/Idle.png",
+      framesMax: 4,
+    },
+    run: {
+      imageSrc: "./assets/kenji/Run.png",
+      framesMax: 8,
+    },
+    jump: {
+      imageSrc: "./assets/kenji/Jump.png",
+      framesMax: 2,
+    },
+    fall: {
+      imageSrc: "./assets/kenji/Fall.png",
+      framesMax: 2,
+    },
+    attack1: {
+      imageSrc: "./assets/kenji/Attack1.png",
+      framesMax: 4,
+    },
+  },
 });
 enemy.draw();
 
@@ -120,7 +148,7 @@ function animate() {
   background.update();
   shop.update();
   player.update();
-  // enemy.update();
+  enemy.update();
 
   // Prevent moving without pressed
   player.velocity.x = 0;
@@ -149,8 +177,21 @@ function animate() {
   // Enemy movements
   if (keys.ArrowLeft.pressed && enemy.lastKey === "ArrowLeft") {
     enemy.velocity.x = -5;
+    enemy.switchSprite("run");
   } else if (keys.ArrowRight.pressed && enemy.lastKey === "ArrowRight") {
     enemy.velocity.x = 5;
+    enemy.switchSprite("run");
+  } else {
+    enemy.switchSprite("idle");
+  }
+
+  // Jumping
+  if (enemy.velocity.y < 0) {
+    enemy.switchSprite("jump");
+  }
+  // Falling
+  else if (enemy.velocity.y > 0) {
+    enemy.switchSprite("fall");
   }
   //   detect for collusion collusion
   if (
@@ -213,7 +254,7 @@ window.addEventListener("keydown", (event) => {
       enemy.velocity.y = -20;
       break;
     case "4":
-      enemy.isAttacking = true;
+      enemy.attack();
       break;
   }
 });
