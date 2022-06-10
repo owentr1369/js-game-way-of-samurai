@@ -4,23 +4,22 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Source+Sans+Pro&family=Source+Serif+Pro:wght@200&display=swap"
+      rel="stylesheet"
+    />
     <title>Way of Samurai</title>
     <style>
       * {
         box-sizing: border-box;
+        font-family: "Press Start 2P", cursive;
       }
     </style>
   </head>
-  <body
-    style="
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #3c3b3f; /* fallback for old browsers */
-      background: -webkit-linear-gradient(to right, #605c3c, #3c3b3f);
-      background: linear-gradient(to right, #605c3c, #3c3b3f);
-    "
-  >
+  <body>
     <!-- Red container div -->
     <div style="position: relative; display: inline-block">
       <div
@@ -36,26 +35,37 @@
         <div
           style="
             position: relative;
-            height: 30px;
             width: 100%;
             display: flex;
             justify-content: flex-end;
+            border: 4px solid white;
+            border-right: none;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
           "
         >
           <div
-            style="background-color: yellow; height: 30px; width: 100%"
+            style="
+              background-color: red;
+              height: 30px;
+              width: 100%;
+              border-top-left-radius: 8px;
+              border-bottom-left-radius: 8px;
+            "
           ></div>
           <div
             id="playerHealth"
             style="
               position: absolute;
-              background-color: blue;
+              background-color: #818cf8;
               width: 100%;
               height: 30px;
               top: 0;
               right: 0;
               bottom: 0;
               width: 100%;
+              border-top-left-radius: 8px;
+              border-bottom-left-radius: 8px;
             "
           ></div>
         </div>
@@ -63,33 +73,55 @@
         <div
           id="timer"
           style="
-            background-color: red;
-            height: 100px;
+            background-color: black;
+            height: 50px;
             width: 100px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
+            border: 4px solid white;
+            border-radius: 8px;
           "
         >
           10
         </div>
         <!-- Enemy health -->
-        <div style="position: relative; height: 30px; width: 100%">
+        <div
+          style="
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            border: 4px solid white;
+            border-left: none;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+          "
+        >
           <div
-            style="background-color: yellow; height: 30px; width: 100%"
+            style="
+              background-color: red;
+              height: 30px;
+              width: 100%;
+              border-top-right-radius: 8px;
+              border-bottom-right-radius: 8px;
+            "
           ></div>
           <div
             id="enemyHealth"
             style="
               position: absolute;
-              background-color: blue;
+              background-color: #818cf8;
               width: 100%;
               height: 30px;
               top: 0;
               right: 0;
               bottom: 0;
               left: 0;
+              border-top-right-radius: 8px;
+              border-bottom-right-radius: 8px;
             "
           ></div>
         </div>
@@ -107,6 +139,7 @@
           bottom: 0;
           left: 0;
           display: none;
+          font-size: 42px;
         "
       >
         Tie
@@ -114,6 +147,13 @@
       <canvas></canvas>
     </div>
   </body>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"
+    integrity="sha512-VEBjfxWUOyzl0bAwh4gdLEaQyDYPvLrZql3pw1ifgb6fhEvZl9iDDehwHZ+dsMzA0Jfww8Xt7COSZuJ/slxc4Q=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
   <script src="./script/classes.js"></script>
   <script src="./script/utils.js"></script>
   <script src="./index.js"></script>
