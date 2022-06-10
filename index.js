@@ -69,6 +69,14 @@ const player = new Fighter({
       framesMax: 6,
     },
   },
+  attackBox: {
+    offset: {
+      x: 100,
+      y: 50,
+    },
+    width: 160,
+    height: 50,
+  },
 });
 
 player.draw();
@@ -113,6 +121,14 @@ const enemy = new Fighter({
       imageSrc: "./assets/kenji/Attack1.png",
       framesMax: 4,
     },
+  },
+  attackBox: {
+    offset: {
+      x: -170,
+      y: 50,
+    },
+    width: 170,
+    height: 50,
   },
 });
 enemy.draw();
@@ -193,17 +209,22 @@ function animate() {
   else if (enemy.velocity.y > 0) {
     enemy.switchSprite("fall");
   }
-  //   detect for collusion collusion
+  //   detect for collusion
   if (
     rectangularCollision({
       rectangle1: player,
       rectangle2: enemy,
     }) &&
-    player.isAttacking
+    player.isAttacking &&
+    player.frameCurrent === 4
   ) {
     player.isAttacking = false;
     enemy.health -= 20;
     document.querySelector("#enemyHealth").style.width = enemy.health + "%";
+  }
+  // if player misses
+  if (player.isAttacking && player.frameCurrent === 4) {
+    player.isAttacking = false;
   }
 
   if (
@@ -211,11 +232,17 @@ function animate() {
       rectangle1: enemy,
       rectangle2: player,
     }) &&
-    enemy.isAttacking
+    enemy.isAttacking &&
+    enemy.frameCurrent === 2
   ) {
     enemy.isAttacking = false;
     player.health -= 20;
     document.querySelector("#playerHealth").style.width = player.health + "%";
+  }
+
+  // If enemy misses
+  if (enemy.isAttacking && enemy.frameCurrent === 2) {
+    enemy.isAttacking = false;
   }
   // Endgame based on health
   if (enemy.health <= 0 || player.health <= 0) {
