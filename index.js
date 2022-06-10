@@ -8,12 +8,22 @@ canvas.height = 576;
 
 c.fillRect(0, 0, canvas.width, canvas.height);
 const gravity = 0.7;
+
 const background = new Sprite({
   position: {
     x: 0,
     y: 0,
   },
   imageSrc: "./assets/background.png",
+});
+
+const shop = new Sprite({
+  position: {
+    x: 600,
+    y: 130,
+  },
+  imageSrc: "./assets/shop.png",
+  scale: 2.75,
 });
 
 const player = new Fighter({
@@ -73,10 +83,12 @@ decreaceTimer();
 
 function animate() {
   window.requestAnimationFrame(animate);
+
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
-  background.update();
 
+  background.update();
+  shop.update();
   player.update();
   enemy.update();
 

@@ -1,3 +1,26 @@
+class Sprite {
+  constructor({ position, imageSrc, scale = 1 }) {
+    this.position = position;
+    this.width = 50;
+    this.height = 150;
+    this.image = new Image();
+    this.image.src = imageSrc;
+    this.scale = scale;
+  }
+  draw() {
+    c.drawImage(
+      this.image,
+      this.position.x,
+      this.position.y,
+      this.image.width * this.scale,
+      this.image.height * this.scale
+    );
+  }
+  update() {
+    this.draw();
+  }
+}
+
 class Fighter {
   constructor({ position, velocity, color = "red", offset }) {
     this.position = position;
@@ -51,21 +74,5 @@ class Fighter {
     setTimeout(() => {
       this.isAttacking = false;
     }, 100);
-  }
-}
-
-class Sprite {
-  constructor({ position, imageSrc }) {
-    this.position = position;
-    this.width = 50;
-    this.height = 150;
-    this.image = new Image();
-    this.image.src = imageSrc;
-  }
-  draw() {
-    c.drawImage(this.image, this.position.x, this.position.y);
-  }
-  update() {
-    this.draw();
   }
 }
